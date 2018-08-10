@@ -48,7 +48,7 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amount of containers as the capacity value
 	vesselResponse, err := s.vesselClient.FindAvailable(context.Background(), &vesselProto.Specification{
-		MaxWeigth: req.Weight,
+		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),
 	})
 	log.Printf("Found vessel: %s \n", vesselResponse.Vessel.Name)
