@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+
+    consignment-cli:
+        build: ./consignment-cli
+        environment:
+          MICRO_REGISTRY: "mdns"
+
+    consignment-service:
+        build: ./consignment-service
+        ports:
+          - 8787:50051
+        environment: 
+          MICOR_REGISTRY: "mdns"
+          MICRO_SERVER_ADDRESS: ":50051"
+          DB_HOST: "datastore:27017"
+
+    vessel-service:
+        build: ./vessel-service
+        ports:
+          - 8686:50051
+        environment:
+          MICRO_REGISTRY: "mdns"
+          MICRO_SERVER_ADDRESS: ":50051"
+          
