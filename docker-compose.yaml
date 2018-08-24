@@ -7,13 +7,18 @@ services:
         environment:
           MICRO_REGISTRY: "mdns"
 
+    user-cli:
+        build:  ./user-cli
+        environment:
+          MICRO_REGISTRY: "mdns"
+                
     consignment-service:
         build: ./consignment-service
         ports:
           - 8787:50051
         environment: 
           MICOR_REGISTRY: "mdns"
-          MICRO_SERVER_ADDRESS: ":50051"
+          MICRO_ADDRESS: ":50051"
           DB_HOST: "datastore:27017"
 
     vessel-service:
@@ -22,5 +27,26 @@ services:
           - 8686:50051
         environment:
           MICRO_REGISTRY: "mdns"
-          MICRO_SERVER_ADDRESS: ":50051"
-          
+          MICRO_ADDRESS: ":50051"
+          DB_HOST: "datastore:27017"
+
+    user-service:
+        build: ./user-service
+        ports:
+          - 8585:50051
+        environment:
+          MICRO_REGISTRY: "mdns"
+          MICRO_ADDRESS: ":50051"
+
+
+    datastore:
+      image: mongo
+      ports:
+        - 27017:27017      
+     
+    database:
+      image: postgres
+      ports:
+        - 5432:5432
+
+

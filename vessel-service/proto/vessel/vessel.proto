@@ -3,7 +3,8 @@ syntax = "proto3";
 package go.micro.srv.vessel;
 
 service VesselService {
-    rpc FindAvailable(Specification) returns (Response) {}
+    rpc FindAvailabel(Specification) returns (Response) {}
+    rpc CreateVessel(Vessel) returns (Response) {}
 }
 
 message Vessel {
@@ -22,5 +23,6 @@ message Specification {
 
 message Response {
     Vessel vessel = 1;
-    repeated Vessel vessels = 3;
+    bool created = 3;
+    repeated Vessel vessels = 2;
 }
