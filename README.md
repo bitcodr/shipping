@@ -1,6 +1,3 @@
 # shipping
 
-Golang Microservice architecture using GoMicro, Docker, GRPC, MongoDB
-
-
-RUN ``make build`` in each folder
+Golang Microservice architecture using go-micro, Docker, GRPC, MongoDB, Postgres
