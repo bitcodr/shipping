@@ -14,5 +14,5 @@ func CreateConnection() (*gorm.DB, error) {
 	DBName := os.Getenv("DB_NAME")
 	password := os.Getenv("DB_PASSWORD")
 
-	return gorm.Open("postgres", fmt.Springf("host=%s user=%s DBName=%s password=%s", host, user, DBName, password))
+	return gorm.Open("postgres", fmt.Sprintf("host=%s user=%s DBName=%s password=%s", host, user, DBName, password))
 }

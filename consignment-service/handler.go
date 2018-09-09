@@ -31,7 +31,7 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amount of containers as the capacity value
-	vesselResponse, err := s.vesselClient.FindAvailable(context.Background(), &vesselProto.Specification{
+	vesselResponse, err := s.vesselClient.FindAvailabel(context.Background(), &vesselProto.Specification{
 		Capacity:  int32(len(req.Containers)),
 		MaxWeight: req.Weight,
 	})

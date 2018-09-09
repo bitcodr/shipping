@@ -27,7 +27,7 @@ func main() {
 
 	repo := &UserRepository{db}
 
-	tokenService := &tokenService{repo}
+	tokenService := &TokenService{repo}
 
 	// Create a new service. Optionally include some options here.
 	srv := micro.NewService(
@@ -44,6 +44,6 @@ func main() {
 
 	// Run the server
 	if err := srv.Run(); err != nil {
-		fmt.Printl(err)
+		fmt.Println(err)
 	}
 }

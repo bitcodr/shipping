@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 
+	"golang.org/x/crypto/bcrypt"
+
 	pb "github.com/amiralii/shipping/user-service/proto/user"
 )
 
@@ -34,13 +36,27 @@ func (s *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	if err != nil {
 		return err
 	}
-	res.Token = "testingabc"
+	// Compares our given password against the hashed password
+	// stored in the database
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
+		return err
+	}
+	token, err := s.tokenService.Encode(user)
+	if err != nil {
+		return nil
+	}
+	res.Token = token
 	return nil
 }
 
 func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
-	user, err := s.repo.Create(req)
+	// Generates a hashed version of our password
+	hashPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
+		return nil
+	}
+	req.Password = string(hashPass)
+	if err := s.repo.Create(req); err != nil {
 		return err
 	}
 	res.User = req

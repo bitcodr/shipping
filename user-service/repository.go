@@ -16,7 +16,7 @@ type UserRepository struct {
 	db *gorm.DB
 }
 
-func (repo *UserRepository) GetAll() (*pb.User, error) {
+func (repo *UserRepository) GetAll() ([]*pb.User, error) {
 	var users []*pb.User
 	if err := repo.db.Find(&users).Error; err != nil {
 		return nil, err
@@ -44,4 +44,5 @@ func (repo *UserRepository) Create(user *pb.User) error {
 	if err := repo.db.Create(user).Error; err != nil {
 		return err
 	}
+	return nil
 }
